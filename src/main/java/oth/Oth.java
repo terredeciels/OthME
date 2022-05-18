@@ -29,13 +29,13 @@ public class Oth implements Constantes {
         lcoups = new ArrayList<>();
     }
 
-    public void gen() {
+    public void gen(int trait) {
+        this.trait = trait;
         range(0, 100).filter(c -> etats[c] == vide).forEach(c -> {
             caseO = c;
             lscore = new ArrayList<>();
             DIRS.forEach(this::statemachine);
         });
-
     }
 
     private void statemachine(int d) {
@@ -47,13 +47,14 @@ public class Oth implements Constantes {
             } else break;
     }
 
-    public void domove() {
+    public boolean domove() {
         for (Score score : move.lscore) {
             for (int k = 0; k <= score.n; k++) {
                 etats[move.sq0 + k * score.dir] = trait;
             }
         }
         etats[move.sq0] = trait;
+        return true;
     }
 
     public void undomove() {

@@ -72,14 +72,27 @@ public class PerftSpeed {
             result.moveCount++;
             return result;
         }
-        o.gen();
+
+        o.gen(o.trait);
         List<Coups> moves = o.lcoups.stream().distinct().toList();
+
+//        if (moves.size()==0) o.gen(-o.trait);
+//        moves = o.lcoups.stream().distinct().toList();
+
+//        if(moves.size()==0) {
+//            System.out.println(o.trait == blanc ? "blanc" : "noir");
+//           // System.out.println(SCASES[o.move.sq0()]);
+//            System.out.println(o);
+//            System.exit(0);
+//        }
+
         for (Coups move : moves) {
             o.move = move;
-            o.domove();
-            PerftResult subPerft = perft(new Oth(o), depth - 1);
-            o.undomove();
-            result.moveCount += subPerft.moveCount;
+            if (o.domove()) {
+                PerftResult subPerft = perft(new Oth(o), depth - 1);
+                o.undomove();
+                result.moveCount += subPerft.moveCount;
+            }
         }
         return result;
     }

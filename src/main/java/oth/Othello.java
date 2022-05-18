@@ -12,7 +12,6 @@ import static oth.Oth.ETAT.Coups.NOMOVE;
 
 public class Othello {
 
-
     private int num;
     private boolean passe;
     private boolean findepartie;
@@ -45,7 +44,7 @@ public class Othello {
     }
 
     private void jouer(Oth o) {
-        o.gen();
+        o.gen(o.trait);
         o.lcoups = o.lcoups.stream().distinct().toList();//sans doublon
         System.out.println("nb_coups " + o.lcoups.size());
         for (Coups cps : o.lcoups)
