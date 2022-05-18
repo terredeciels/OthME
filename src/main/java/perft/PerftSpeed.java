@@ -4,7 +4,7 @@ import oth.Oth;
 
 import java.util.List;
 
-import static oth.Oth.ETAT.Coups;
+import static oth.Etat.Coups;
 
 //DEPTH  #LEAF NODES   #FULL-DEPTH  #HIGHER
 //        ==========================================
@@ -49,7 +49,7 @@ import static oth.Oth.ETAT.Coups;
 //        Count = 1939886636
 
 public class PerftSpeed {
-    static final int MAX_DEPTH = 11;
+    static final int MAX_DEPTH = 10;
     static String[] count = new String[MAX_DEPTH + 1];
     static String[] expectcount = new String[]{"", "4", "12", "56", "244", "1396", "8200", "55092",
             "390216", "3005288", "24571284", "212258800", "1939886636", "18429641748", "184042084512"};
@@ -86,11 +86,11 @@ public class PerftSpeed {
         if (moves.size() != 0) {
             for (Coups move : moves) {
                 o.move = move;
-                if (o.domove()) {
-                    PerftResult subPerft = perft(new Oth(o), depth - 1);
-                    o.undomove();
-                    result.moveCount += subPerft.moveCount;
-                }
+                o.fmove(false);
+                PerftResult subPerft = perft(new Oth(o), depth - 1);
+                o.fmove(true);
+                result.moveCount += subPerft.moveCount;
+
             }
         } else {
             PerftResult subPerft = perft(new Oth(o), depth - 1);

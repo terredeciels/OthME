@@ -3,8 +3,8 @@ package eval;
 import java.util.List;
 import java.util.Random;
 
-import static oth.Oth.ETAT.Coups;
-import static oth.Oth.ETAT.Coups.NOMOVE;
+import static oth.Etat.Coups;
+import static oth.Etat.Coups.NOMOVE;
 
 public class OthEval {
 

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 import static java.util.stream.IntStream.range;
 import static oth.Constantes.*;
-import static oth.Oth.ETAT.Coups;
-import static oth.Oth.ETAT.Coups.NOMOVE;
+import static oth.Etat.Coups;
+import static oth.Etat.Coups.NOMOVE;
 
 public class Othello {
 
@@ -53,7 +53,7 @@ public class Othello {
         o.move = OthEval.aleatoire_evaluation(o.lcoups);
         if (o.move != NOMOVE) {
             if (passe) passe = false;
-            o.domove();
+            o.fmove(false);
             System.out.println("num " + num);
             System.out.println(o.trait == blanc ? "blanc" : "noir");
             System.out.println(SCASES[o.move.sq0()]);
