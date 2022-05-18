@@ -1,7 +1,9 @@
 package perft;
 
+import oth.Oth;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static perft.PerftSpeed.count;
+import static perft.PerftSpeed.MAX_DEPTH;
 
 class PerftSpeedTest {
     //DEPTH  #LEAF NODES   #FULL-DEPTH  #HIGHER
@@ -24,8 +26,17 @@ class PerftSpeedTest {
     void main() {
         String[] expectcount = new String[]{"", "4", "12", "56", "244", "1396", "8200", "55092",
                 "390216", "3005288", "24571284", "212258800", "1939886636", "18429641748", "184042084512"};
-        PerftSpeed.perftTest();
-        for (int n = 1; n < 14; n++) assertEquals(count[n], expectcount[n]);
-
+//        PerftSpeed.perftTest();
+//        for (int n = 1; n < 14; n++) assertEquals(count[n], expectcount[n]);
+        Oth o = new Oth();
+        double t0 = System.nanoTime();
+        for (int depth = 1; depth <= MAX_DEPTH; depth++) {
+            PerftSpeed.PerftResult res = PerftSpeed.perft(new Oth(o), depth);
+            double t1 = System.nanoTime();
+            System.out.println("Depth " + depth + " : " + (t1 - t0) / 1000000000 + " sec");
+            System.out.println("Count = " + res.moveCount + "  /  " + expectcount[depth]);
+            assertEquals(Long.toString(res.moveCount), expectcount[depth]);
+            // count[depth] = Long.toString(res.moveCount);
+        }
     }
 }
