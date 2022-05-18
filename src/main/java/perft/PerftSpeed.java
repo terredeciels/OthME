@@ -23,44 +23,52 @@ import static oth.Oth.ETAT.Coups;
 //        13  18429641748  =  18429634780  +   6968
 //        14 184042084512  = 184042061172  +  23340
 //-----------------------------------------------------
-//        Depth 1 : 0.0233582 sec
+//        Depth 1 : 0.0160349 sec
 //        Count = 4
-//        Depth 2 : 0.0327687 sec
+//        Depth 2 : 0.0238381 sec
 //        Count = 12
-//        Depth 3 : 0.0381227 sec
+//        Depth 3 : 0.0287492 sec
 //        Count = 56
-//        Depth 4 : 0.0422763 sec
+//        Depth 4 : 0.0332539 sec
 //        Count = 244
-//        Depth 5 : 0.0535222 sec
+//        Depth 5 : 0.0447566 sec
 //        Count = 1396
-//        Depth 6 : 0.0792142 sec
+//        Depth 6 : 0.0673737 sec
 //        Count = 8200
-//        Depth 7 : 0.1552523 sec
+//        Depth 7 : 0.1341337 sec
 //        Count = 55092
-//        Depth 8 : 0.4575932 sec
+//        Depth 8 : 0.3990822 sec
 //        Count = 390216
-// -----------------------------------------
-//        Depth 9 : 2.1796524 sec
-//        Count = 3005264 ERROR 3005288
-//        Depth 10 : 14.8637683 sec
-//        Count = 24571000 ERROR 24571284
+//        Depth 9 : 1.8116074 sec
+//        Count = 3005288
+//        Depth 10 : 12.1013382 sec
+//        Count = 24571284
+//        Depth 11 : 96.0875799 sec
+//        Count = 212258800
+//        Depth 12 : 834.5599024 sec
+//        Count = 1939886636
 
 public class PerftSpeed {
+    static final int MAX_DEPTH = 11;
+    static String[] count = new String[MAX_DEPTH + 1];
+    static String[] expectcount = new String[]{"", "4", "12", "56", "244", "1396", "8200", "55092",
+            "390216", "3005288", "24571284", "212258800", "1939886636", "18429641748", "184042084512"};
 
     public static void main(String[] args) {
         perftTest();
     }
 
-    private static void perftTest() {
+    static void perftTest() {
 
         Oth o = new Oth();
-        int max_depth = 10;
         double t0 = System.nanoTime();
-        for (int depth = 1; depth <= max_depth; depth++) {
+        for (int depth = 1; depth <= MAX_DEPTH; depth++) {
             PerftResult res = perft(new Oth(o), depth);
             double t1 = System.nanoTime();
             System.out.println("Depth " + depth + " : " + (t1 - t0) / 1000000000 + " sec");
             System.out.println("Count = " + res.moveCount);
+            assert (Long.toString(res.moveCount).equals(expectcount[depth]));
+            count[depth] = Long.toString(res.moveCount);
         }
 
     }
