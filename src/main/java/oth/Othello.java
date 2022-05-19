@@ -22,11 +22,12 @@ public class Othello {
         new Othello().jouer();
     }
 
-    private void jouer() {
+    void jouer() {
         Oth o = new Oth();
+
         num = 0;
         while (true) {
-            if (num >= 64) break;
+            //if (num >= 64) break;
             if (findepartie) {
                 resultat(o);
                 break;
@@ -52,7 +53,7 @@ public class Othello {
         else {
             if (passe) passe = false;
             o.fmove(!undomove);
-            affichage(o);
+           // affichage(o);
         }
     }
 
