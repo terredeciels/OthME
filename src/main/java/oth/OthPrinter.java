@@ -3,7 +3,13 @@ package oth;
 import static java.util.stream.IntStream.range;
 
 public class OthPrinter {
-    int[] etats;
+
+
+    private final int[] etats;
+
+    public OthPrinter(Oth o) {
+        etats = o.etats;
+    }
 
     @Override
     public String toString() {
@@ -16,7 +22,7 @@ public class OthPrinter {
         return spos.toString();
     }
 
-    String print(int etat) {
+    private String print(int etat) {
         return switch (etat) {
             case Constantes.vide -> "_";
             case Constantes.blanc -> "b";

@@ -4,6 +4,7 @@ import oth.Oth;
 
 import java.util.List;
 
+import static oth.Constantes.undomove;
 import static oth.Etat.Coups;
 
 //DEPTH  #LEAF NODES   #FULL-DEPTH  #HIGHER
@@ -50,9 +51,7 @@ import static oth.Etat.Coups;
 
 public class PerftSpeed {
     static final int MAX_DEPTH = 10;
-    static String[] count = new String[MAX_DEPTH + 1];
-    static String[] expectcount = new String[]{"", "4", "12", "56", "244", "1396", "8200", "55092",
-            "390216", "3005288", "24571284", "212258800", "1939886636", "18429641748", "184042084512"};
+    //static String[] count = new String[MAX_DEPTH + 1];
 
     public static void main(String[] args) {
         perftTest();
@@ -67,8 +66,7 @@ public class PerftSpeed {
             double t1 = System.nanoTime();
             System.out.println("Depth " + depth + " : " + (t1 - t0) / 1000000000 + " sec");
             System.out.println("Count = " + res.moveCount);
-            //assert (Long.toString(res.moveCount).equals(expectcount[depth]));
-            count[depth] = Long.toString(res.moveCount);
+            //  count[depth] = Long.toString(res.moveCount);
         }
 
     }
@@ -86,9 +84,9 @@ public class PerftSpeed {
         if (moves.size() != 0) {
             for (Coups move : moves) {
                 o.move = move;
-                o.fmove(false);
+                o.fmove(!undomove);
                 PerftResult subPerft = perft(new Oth(o), depth - 1);
-                o.fmove(true);
+                o.fmove(undomove);
                 result.moveCount += subPerft.moveCount;
 
             }

@@ -6,10 +6,11 @@ import java.util.List;
 import static java.util.stream.IntStream.range;
 import static oth.Etat.*;
 
-public class Oth extends OthPrinter implements Constantes {
+public class Oth implements Constantes {
     public List<Coups> lcoups;
     public Coups move;
     public int trait;
+    int[] etats;
     int n;
     int caseO;
     int _case;
@@ -28,8 +29,8 @@ public class Oth extends OthPrinter implements Constantes {
         lcoups = new ArrayList<>();
     }
 
-    public void gen(int trait) {
-        this.trait = trait;
+    public void gen(int t) {
+        trait = t;
         range(0, 100).filter(c -> etats[c] == vide).forEach(c -> {
             caseO = c;
             lscore = new ArrayList<>();
@@ -40,6 +41,7 @@ public class Oth extends OthPrinter implements Constantes {
     private void statemachine(int d) {
         dir = d;
         Etat state = O;
+
         while (true)
             if (state != null) {
                 if ((state = state.exec(this)) == I) break;
