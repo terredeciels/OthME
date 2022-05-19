@@ -10,7 +10,7 @@ public class Oth implements Constantes {
     public List<Coups> lcoups;
     public Coups move;
     public int trait;
-    int[] etats;
+    public int[] etats;
     int n;
     int caseO;
     int _case;

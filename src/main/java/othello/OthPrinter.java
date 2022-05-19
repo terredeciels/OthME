@@ -1,9 +1,11 @@
-package oth;
+package othello;
+
+import oth.Constantes;
+import oth.Oth;
 
 import static java.util.stream.IntStream.range;
 
 public class OthPrinter {
-
 
     private final int[] etats;
 
