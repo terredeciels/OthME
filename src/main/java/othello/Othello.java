@@ -1,14 +1,12 @@
 package othello;
 
 
-import eval.OthEval;
 import oth.Oth;
 
-import java.util.ArrayList;
-
+import static eval.OthEval.eval;
 import static oth.Oth.Coups.NOMOVE;
 
-public class Othello extends Oth{
+public class Othello extends Oth {
 
 
     private final OthPrinter othprint;
@@ -21,25 +19,20 @@ public class Othello extends Oth{
     }
 
     public void jouer() {
-        while (!findepartie) {
-            gen(trait);
-            lcoups = lcoups.stream().distinct().toList();//sans doublon
-            move = OthEval.aleatoire_evaluation(lcoups);
-            passe_findepartie();
-            trait = -trait;
-            lcoups = new ArrayList<>();
+        while (true) {
+            if (!findepartie) {
+                move = eval(gen(trait).stream().distinct().toList());
+                if (move == NOMOVE) if (passe) findepartie = true;
+                else passe = true;
+                else {
+                    if (passe) passe = false;
+                    fmove(!undomove);
+                    othprint.affichage();
+                }
+                changeside();
+            } else break;
         }
         othprint.resultat();
-    }
-
-    private void passe_findepartie() {
-        if (move == NOMOVE) if (passe) findepartie = true;
-        else passe = true;
-        else {
-            if (passe) passe = false;
-            fmove(!undomove);
-            othprint.affichage();
-        }
     }
 
 

@@ -52,7 +52,7 @@ public class Oth implements Constantes {
         lcoups = new ArrayList<>();
     }
 
-    public void gen(int t) {
+    public List<Coups> gen(int t) {
         trait = t;
         range(0, 100)
                 .filter(c -> etats[c] == vide)
@@ -61,6 +61,7 @@ public class Oth implements Constantes {
                     lscore = new ArrayList<>();
                     DIRS.forEach(this::statemachine);
                 });
+        return lcoups;
     }
 
     private void statemachine(int d) {
@@ -85,6 +86,11 @@ public class Oth implements Constantes {
         return etats[_case = caseO + n * dir];
     }
 
+    public void changeside() {
+        trait = -trait;
+        lcoups = new ArrayList<>();
+    }
+
     abstract static class Etat {
         abstract Etat exec(Oth o);
     }
@@ -96,7 +102,9 @@ public class Oth implements Constantes {
         public String toString() {
             return "(" + SCASES[sq0] + ", " + lscore + ")";
         }
+
     }
+
 
     public record Score(int n, int dir) {
     }
