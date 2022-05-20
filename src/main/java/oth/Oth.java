@@ -3,7 +3,6 @@ package oth;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.stream.IntStream.range;
 import static java.util.stream.IntStream.rangeClosed;
 
 
@@ -44,6 +43,14 @@ public class Oth implements Constantes {
         etats = o.etats;
         trait = -o.trait;
         lcoups = new ArrayList<>();
+//        move=o.move;
+//        lscore=o.lscore;
+//        caseO=o.caseO;
+//        _case=o._case;
+//        dir=o.dir;
+//        S0=o.S0;
+//        S1=o.S1;
+//        n=o.n;
     }
 
     public Oth() {
@@ -54,13 +61,13 @@ public class Oth implements Constantes {
 
     public List<Coups> gen(int t) {
         trait = t;
-        range(0, 100)
-                .filter(c -> etats[c] == vide)
-                .forEach(c -> {
-                    caseO = c;
-                    lscore = new ArrayList<>();
-                    DIRS.forEach(this::statemachine);
-                });
+        for (int c = 0; c < 100; c++) {
+            if (etats[c] == vide) {
+                caseO = c;
+                lscore = new ArrayList<>();
+                DIRS.forEach(this::statemachine);
+            }
+        }
         return lcoups;
     }
 

@@ -30,10 +30,10 @@ public class OthPrinter {
 
     private String print(int etat) {
         return switch (etat) {
-            case Constantes.vide -> "_";
-            case Constantes.blanc -> "b";
-            case Constantes.noir -> "n";
-            case Constantes.out -> " ";
+            case vide -> "_";
+            case blanc -> "b";
+            case noir -> "n";
+            case out -> " ";
             default -> "?";
         };
     }
@@ -48,7 +48,9 @@ public class OthPrinter {
     }
 
     void resultat() {
-        System.out.println("fin de partie");
+        //System.out.println("fin de partie");
+        sN = 0;
+        sB = 0;
         range(0, 100).forEach(c -> {
             switch (o.etats[c]) {
 
@@ -56,6 +58,8 @@ public class OthPrinter {
                 case noir -> sN++;
             }
         });
-        System.out.println("blancs: " + sB + " noirs: " + sN);
+       // System.out.println("blancs: " + sB + " noirs: " + sN);
+        String R = sB > sN ? "1": (sN > sB ? "0":"0.5");
+        System.out.println(R+","+sB + "," + sN);
     }
 }
