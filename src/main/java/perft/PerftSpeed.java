@@ -51,7 +51,6 @@ import static oth.Etat.Coups;
 
 public class PerftSpeed {
     static final int MAX_DEPTH = 10;
-    //static String[] count = new String[MAX_DEPTH + 1];
 
     public static void main(String[] args) {
         perftTest();
@@ -66,7 +65,6 @@ public class PerftSpeed {
             double t1 = System.nanoTime();
             System.out.println("Depth " + depth + " : " + (t1 - t0) / 1000000000 + " sec");
             System.out.println("Count = " + res.moveCount);
-            //  count[depth] = Long.toString(res.moveCount);
         }
 
     }
