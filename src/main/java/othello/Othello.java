@@ -8,17 +8,16 @@ import java.util.ArrayList;
 
 import static java.util.stream.IntStream.range;
 import static oth.Constantes.*;
-import static oth.Etat.Coups;
-import static oth.Etat.Coups.NOMOVE;
+import static oth.Oth.Coups.NOMOVE;
 
 public class Othello {
 
-   private int num=0;
+    private final Oth o;
+    private int num = 0;
     private boolean passe = true;
     private boolean findepartie;
     private int sB;
     private int sN;
-    private final Oth o;
 
     public Othello() {
         o = new Oth();
@@ -53,7 +52,7 @@ public class Othello {
     }
 
     private void affichage() {
-        for (Coups cps : o.lcoups)
+        for (Oth.Coups cps : o.lcoups)
             System.out.println(cps);
         System.out.println("num " + num++);
         System.out.println(o.trait == blanc ? "blanc" : "noir");

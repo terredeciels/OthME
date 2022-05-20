@@ -5,7 +5,7 @@ import oth.Oth;
 import java.util.List;
 
 import static oth.Constantes.undomove;
-import static oth.Etat.Coups;
+
 
 //DEPTH  #LEAF NODES   #FULL-DEPTH  #HIGHER
 //        ==========================================
@@ -78,9 +78,9 @@ public class PerftSpeed {
         }
 
         o.gen(o.trait);
-        List<Coups> moves = o.lcoups.stream().distinct().toList();
+        List<Oth.Coups> moves = o.lcoups.stream().distinct().toList();
         if (moves.size() != 0) {
-            for (Coups move : moves) {
+            for (Oth.Coups move : moves) {
                 o.move = move;
                 o.fmove(!undomove);
                 PerftResult subPerft = perft(new Oth(o), depth - 1);
