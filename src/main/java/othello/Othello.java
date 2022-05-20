@@ -6,70 +6,41 @@ import oth.Oth;
 
 import java.util.ArrayList;
 
-import static java.util.stream.IntStream.range;
-import static oth.Constantes.*;
 import static oth.Oth.Coups.NOMOVE;
 
-public class Othello {
+public class Othello extends Oth{
 
-    private final Oth o;
-    private int num = 0;
+
+    private final OthPrinter othprint;
     private boolean passe = true;
     private boolean findepartie;
-    private int sB;
-    private int sN;
+
 
     public Othello() {
-        o = new Oth();
+        othprint = new OthPrinter(this);
     }
 
     public void jouer() {
         while (!findepartie) {
-            o.gen(o.trait);
-            o.lcoups = o.lcoups.stream().distinct().toList();//sans doublon
-            o.move = OthEval.aleatoire_evaluation(o.lcoups);
+            gen(trait);
+            lcoups = lcoups.stream().distinct().toList();//sans doublon
+            move = OthEval.aleatoire_evaluation(lcoups);
             passe_findepartie();
-            o.trait = -o.trait;
-            o.lcoups = new ArrayList<>();
+            trait = -trait;
+            lcoups = new ArrayList<>();
         }
-        resultat();
+        othprint.resultat();
     }
 
     private void passe_findepartie() {
-        if (o.move == NOMOVE) {
-            if (passe) {
-                findepartie = true;
-            } else {
-                passe = true;
-            }
-        } else {
-            if (passe) {
-                passe = false;
-            }
-            o.fmove(!undomove);
-            affichage();
+        if (move == NOMOVE) if (passe) findepartie = true;
+        else passe = true;
+        else {
+            if (passe) passe = false;
+            fmove(!undomove);
+            othprint.affichage();
         }
     }
 
-    private void affichage() {
-        for (Oth.Coups cps : o.lcoups)
-            System.out.println(cps);
-        System.out.println("num " + num++);
-        System.out.println(o.trait == blanc ? "blanc" : "noir");
-        System.out.println(SCASES[o.move.sq0()]);
-        System.out.println(new OthPrinter(o));
-    }
-
-    private void resultat() {
-        System.out.println("fin de partie");
-        range(0, 100).forEach(c -> {
-            switch (o.etats[c]) {
-
-                case blanc -> sB++;
-                case noir -> sN++;
-            }
-        });
-        System.out.println("blancs: " + sB + " noirs: " + sN);
-    }
 
 }
