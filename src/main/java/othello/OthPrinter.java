@@ -58,8 +58,8 @@ public class OthPrinter {
                 case noir -> sN++;
             }
         });
-       // System.out.println("blancs: " + sB + " noirs: " + sN);
-        String R = sB > sN ? "1": (sN > sB ? "0":"0.5");
-        System.out.println(R+","+sB + "," + sN);
+        // System.out.println("blancs: " + sB + " noirs: " + sN);
+        String R = sB > sN ? "1" : (sN > sB ? "0" : "0.5");
+        System.out.println(R + "," + sB + "," + sN);
     }
 }

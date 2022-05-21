@@ -6,9 +6,6 @@ import oth.Oth;
 import java.util.ArrayList;
 
 import static eval.OthEval.eval;
-import static java.util.stream.IntStream.range;
-import static oth.Constantes.blanc;
-import static oth.Constantes.noir;
 import static oth.Oth.Coups.NOMOVE;
 
 public class Othello {
@@ -17,8 +14,6 @@ public class Othello {
     Oth o;
     private boolean passe = true;
     private boolean findepartie;
-    private int sN;
-    private int sB;
 
 
     public Othello() {
@@ -30,10 +25,10 @@ public class Othello {
         findepartie = false;
         passe = false;
         o.lcoups = new ArrayList<>();
-
         while (true) {
             if (!findepartie) {
-                o.move = eval(o.gen(o.trait).stream().distinct().toList());
+                o.gen(o.trait);
+                o.move = eval(o.lcoups.stream().distinct().toList());
                 passe_et_findepartie();
                 o.changeside();
             } else break;
@@ -48,7 +43,7 @@ public class Othello {
         else {
             if (passe) passe = false;
             o.fmove(!o.undomove);
-           // othprint.affichage();
+            // othprint.affichage();
         }
     }
 

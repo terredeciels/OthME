@@ -39,36 +39,31 @@ public class Oth implements Constantes {
         };
     }
 
-    public Oth(Oth o) {
-        etats = o.etats;
-        trait = -o.trait;
-        lcoups = new ArrayList<>();
-//        move=o.move;
-//        lscore=o.lscore;
-//        caseO=o.caseO;
-//        _case=o._case;
-//        dir=o.dir;
-//        S0=o.S0;
-//        S1=o.S1;
-//        n=o.n;
-    }
-
     public Oth() {
-        etats = ETATS_INIT;
+        etats = ETATS_INIT.clone();
         trait = noir;
         lcoups = new ArrayList<>();
     }
 
-    public List<Coups> gen(int t) {
+    public Oth(Oth o) {
+        etats = o.etats;
+        trait = -o.trait;
+        lcoups = new ArrayList<>();
+    }
+
+
+    public void gen(int t) {
         trait = t;
         for (int c = 0; c < 100; c++) {
             if (etats[c] == vide) {
                 caseO = c;
                 lscore = new ArrayList<>();
-                DIRS.forEach(this::statemachine);
+                for (Integer DIR : DIRS) {
+                    statemachine(DIR);
+                }
             }
         }
-        return lcoups;
+
     }
 
     private void statemachine(int d) {
