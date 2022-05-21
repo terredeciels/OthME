@@ -3,18 +3,31 @@ package othello;
 import oth.Constantes;
 import oth.Oth;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static java.util.stream.IntStream.range;
-import static oth.Constantes.*;
 
-public class OthPrinter {
+public class OthPrinter implements Constantes {
 
+    final FileWriter writter;
     private final Oth o;
     private int num;
     private int sN;
     private int sB;
 
+
     public OthPrinter(Oth o) {
         this.o = o;
+        try {
+            File toFile = new File(pathname + filename);
+            if (toFile.createNewFile()) System.out.println("Fichier: " + toFile.getName());
+            else System.out.println("-----------");
+            writter = new FileWriter(filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -48,7 +61,6 @@ public class OthPrinter {
     }
 
     void resultat() {
-        //System.out.println("fin de partie");
         sN = 0;
         sB = 0;
         range(0, 100).forEach(c -> {
@@ -58,8 +70,15 @@ public class OthPrinter {
                 case noir -> sN++;
             }
         });
-        // System.out.println("blancs: " + sB + " noirs: " + sN);
         String R = sB > sN ? "1" : (sN > sB ? "0" : "0.5");
         System.out.println(R + "," + sB + "," + sN);
+        try {
+            // R = sB > sN ? "1" : (sN > sB ? "0" : "0.5");
+            writter.write(R + "," + sB + "," + sN);
+            writter.write("\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

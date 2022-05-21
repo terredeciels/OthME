@@ -3,6 +3,7 @@ package othello;
 
 import oth.Oth;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static eval.OthEval.eval;
@@ -10,7 +11,7 @@ import static oth.Oth.Coups.NOMOVE;
 
 public class Othello {
 
-    private final OthPrinter othprint;
+    final OthPrinter othprint;
     Oth o;
     private boolean passe = true;
     private boolean findepartie;
@@ -20,7 +21,12 @@ public class Othello {
         o = new Oth();
         othprint = new OthPrinter(o);
     }
-
+    public static void main(String[] args) {
+        int max = 5;
+        for (int nb = 0; nb < max; nb++) {
+            new Othello().jouer();
+        }
+    }
     public void jouer() {
         findepartie = false;
         passe = false;
@@ -34,7 +40,11 @@ public class Othello {
             } else break;
         }
         othprint.resultat();
-
+        try {
+            othprint.writter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void passe_et_findepartie() {
