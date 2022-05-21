@@ -5,7 +5,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public interface Constantes {
-     String filename = "statistiques.txt";
+    String filename = "statistiques.txt";
     String pathname = "C:\\Users\\gille\\IdeaProjects\\OthME\\";
     int noir = -1, blanc = 1, vide = 0, out = 2;
     int N = -10, E = 1, Ouest = -1, S = 10, NE = -9, SO = 9, NO = -11, SE = 11;
